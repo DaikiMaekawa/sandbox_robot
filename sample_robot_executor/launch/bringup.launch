@@ -7,7 +7,7 @@
   <node pkg="rqt_reconfigure" name="rqt_reconfigure" type="rqt_reconfigure"/>
   <node pkg="rqt_py_trees" name="rqt_py_trees" type="rqt_py_trees"/>
 
-  <node pkg="behavior_engine" name="tree" type="sample.py"/>
+  <node pkg="behavior_engine" name="tree" type="coordinator.py"/>
   
   <!-- Turtlebot3 -->
   <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
@@ -20,17 +20,11 @@
   <!-- AMCL -->
   <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
   
-  <include file="$(find sample_robot_executor)/launch/move_base.launch">
+  <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
     <arg name="model" value="$(arg model)" />
     <arg name="move_forward_only" value="false"/>
   </include>
 
-  <node pkg="sq_laser_processing" type="narrow_space_planner" name="narrow_space_planner" output="screen">
-    <remap from="cloud" to="/camera/depth/points"/>
-    <remap from="cloud_singleshot" to="/obstacle/cloud_remembered"/>
-    <remap from="status" to="/spur/status"/>
-  </node>
-  
   <!-- rviz -->
   <group if="$(arg open_rviz)"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
