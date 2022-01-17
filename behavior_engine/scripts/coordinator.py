@@ -10,8 +10,6 @@ import geometry_msgs
 import rospy
 import sys
 
-
-
 def create_root():
     pose1 = geometry_msgs.msg.PoseStamped()
     pose1.header.frame_id = "map"
